@@ -6,9 +6,10 @@ import Stack from '@mui/joy/Stack';
 import { lang } from '../globalVars';
 
 interface FormElements extends HTMLFormControlsCollection {
+  name: HTMLInputElement;
+  tel: HTMLInputElement;
   email: HTMLInputElement;
-  password: HTMLInputElement;
-  persistent: HTMLInputElement;
+  social: HTMLInputElement;
 }
 interface SignInFormElement extends HTMLFormElement {
   readonly elements: FormElements;
@@ -35,12 +36,16 @@ if (lang === 'HEB') {
 export default function Form() {
   function handleSubmit(event: React.FormEvent<SignInFormElement>) {
     event.preventDefault();
-    // const formElements = event.currentTarget.elements;
-    // const data = {
-    //   email: formElements.email.value,
-    //   password: formElements.password.value,
-    //   persistent: formElements.persistent.checked,
-    // };
+
+    const formElements = event.currentTarget.elements;
+
+    const data = {
+      name: formElements.name.value,
+      tel: formElements.tel.value,
+      email: formElements.email.value,
+      social: formElements.social.value,
+    };
+    console.log('data: ', data); //removeEytan
   }
 
   return (
