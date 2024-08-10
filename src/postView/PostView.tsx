@@ -1,13 +1,12 @@
 import { Button } from '@mui/joy';
 import Form from './Form';
-import GradientBackground from './GradientBackground';
 import { lang } from '../globalVars';
 import Events from './Events';
-import { useState } from 'react';
+import PendingApproval from './PendingApproval';
+import EventDetails from './EventDetails';
 
 const title = 'דירת שלושה חדרים ברחוב מלצט 15 בתל אביב';
 const url = 'https://www.facebook.com/share/p/GoP26zLbeuncJ36A/';
-// const isUserApproved = true;
 
 let apartmentLinkButtonText = 'Apartment Details';
 
@@ -15,15 +14,26 @@ if (lang === 'HEB') {
   apartmentLinkButtonText = 'לינק לדירה';
 }
 
+type ProspectStatus = 'init' | 'pendingApproval' | 'approved' | 'subscribed';
+
 export default function PostView() {
-  const [isUserApproved, setIsUserApproved] = useState(true);
+  const prospectStatus = 'none';
+  // const prospectStatus = 'init';
+  // const prospectStatus = 'pendingApproval'
+  // const prospectStatus = 'approved'
+  // const prospectStatus = 'subscribed'
+
   return (
     <>
-      <button
-        onClick={() => setIsUserApproved((prev) => !prev)}
+      {/* <button
+        onClick={() => {
+          setI(prev=>prev+1);
+          setUserStatus(userStatusArr[i])
+        }}
         style={{ width: '50px' }}>
         toggle
       </button>
+      <Typography level='body-xs'>status: {userStatus}</Typography> */}
 
       <div
         style={{
@@ -42,9 +52,11 @@ export default function PostView() {
           {apartmentLinkButtonText}
         </Button>
 
-        {isUserApproved ? <Events /> : <Form />}
-
-        <GradientBackground />
+        {prospectStatus === 'none' && <Form />}
+        {prospectStatus === 'init' && <Form isUserInit={true} />}
+        {prospectStatus === 'pendingApproval' && <PendingApproval />}
+        {prospectStatus === 'approved' && <Events />}
+        {prospectStatus === 'subscribed' && <EventDetails />}
       </div>
     </>
   );

@@ -1,9 +1,10 @@
-import { Button } from '@mui/joy';
+import { Button, Divider } from '@mui/joy';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
 import { lang } from '../globalVars';
+import Login from '../authentication/Login';
 
 interface FormElements extends HTMLFormControlsCollection {
   name: HTMLInputElement;
@@ -11,7 +12,7 @@ interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
   social: HTMLInputElement;
 }
-interface SignInFormElement extends HTMLFormElement {
+export interface SignInFormElement extends HTMLFormElement {
   readonly elements: FormElements;
 }
 
@@ -28,12 +29,12 @@ if (lang === 'HEB') {
   nameLabel = 'שם';
   telLabel = 'טלפון';
   emailLabel = 'אימייל';
-  socialLabel = 'לינק לפייסבוק / לינקדין / אחר';
+  socialLabel = 'פייסבוק / לינקדין / אחר';
   buttonText = 'הרשמה';
 }
 
 //-----------------------------------------
-export default function Form() {
+export default function Form({ isUserInit = false }: { isUserInit: boolean }) {
   function handleSubmit(event: React.FormEvent<SignInFormElement>) {
     event.preventDefault();
 
@@ -94,6 +95,12 @@ export default function Form() {
             {buttonText}
           </Button>
         </form>
+        {!isUserInit && (
+          <>
+            <Divider />
+            <Login />
+          </>
+        )}
       </Stack>
     </>
   );
