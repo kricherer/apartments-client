@@ -7,7 +7,7 @@ import ModalDialog from '@mui/joy/ModalDialog';
 import DialogTitle from '@mui/joy/DialogTitle';
 import DialogContent from '@mui/joy/DialogContent';
 import Stack from '@mui/joy/Stack';
-import { lang } from '../globalVars';
+import { lang } from '../../globalVars';
 
 let getOtpTitle = 'SMS Authentication';
 let getOtpTitle2 = 'Please fill in your phone number';
@@ -15,10 +15,10 @@ let otpCodeTitle = 'Insert Code';
 
 let otpCodeTitle2 = 'Please fill in the code you received';
 
-let login = 'Login';
+// let login = 'Login';
 let Submit = 'Submit';
 if (lang === 'HEB') {
-  login = 'התחברות';
+  // login = 'התחברות';
   getOtpTitle = 'כניסה עם SMS';
   getOtpTitle2 = 'הזן מספר טלפון לקבלת קוד לנייד';
   Submit = 'שלח';
@@ -27,8 +27,14 @@ if (lang === 'HEB') {
   otpCodeTitle2 = 'הזינו את הקוד שקיבלתם בSMS';
 }
 
-export default function Login() {
-  const [open, setOpen] = React.useState<boolean>(false);
+export default function Login({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  // const [open, setOpen] = React.useState<boolean>(false);
   const [codeModalOpen, setCodeModalOpen] = React.useState<boolean>(false);
 
   function handleSubmitPhone(event: React.FormEvent<HTMLFormElement>) {
@@ -45,9 +51,9 @@ export default function Login() {
 
   return (
     <React.Fragment>
-      <Button onClick={() => setOpen(true)} variant="plain">
+      {/* <Button onClick={() => setOpen(true)} variant="plain">
         {login}
-      </Button>
+      </Button> */}
       <Modal open={open} onClose={() => setOpen(false)}>
         {codeModalOpen ? (
           <InsertCode handleSubmitCode={handleSubmitCode} />

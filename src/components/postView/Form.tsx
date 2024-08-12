@@ -4,7 +4,8 @@ import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
 import { lang } from '../globalVars';
-import Login from '../authentication/Login';
+import Login from '../components/authentication/Login';
+import { useState } from 'react';
 
 interface FormElements extends HTMLFormControlsCollection {
   name: HTMLInputElement;
@@ -23,8 +24,9 @@ let telLabel = 'Phone';
 let emailLabel = 'Email';
 let socialLabel = 'Social Link';
 let buttonText = 'Register';
-
+let login = 'Login';
 if (lang === 'HEB') {
+  login = 'התחברות';
   title = 'הרשמו על מנת לקבל פרטים ושעות ביקור:';
   nameLabel = 'שם';
   telLabel = 'טלפון';
@@ -35,6 +37,8 @@ if (lang === 'HEB') {
 
 //-----------------------------------------
 export default function Form({ isUserInit = false }: { isUserInit: boolean }) {
+  const [open, setOpen] = useState<boolean>(false);
+
   function handleSubmit(event: React.FormEvent<SignInFormElement>) {
     event.preventDefault();
 
@@ -98,7 +102,10 @@ export default function Form({ isUserInit = false }: { isUserInit: boolean }) {
         {!isUserInit && (
           <>
             <Divider />
-            <Login />
+            <Button onClick={() => setOpen(true)} variant="plain">
+              {login}
+            </Button>
+            <Login open={open} setOpen={setOpen} />
           </>
         )}
       </Stack>
